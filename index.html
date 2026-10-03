@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>teaonmansion</title>
+<title> teaonmansion v.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F4EEE1; --ink:#241B12; --roast:#3B2A1F; --brass:#B8793B;
-    --brass-dark:#8F5A26; --sage:#5C7A5A; --rust:#A83232; --line:#D8CBAE;
-    --panel:#FFFDF7;
+    --paper:#FBF3EE; --ink:#4A3A3D; --roast:#A6616C; --brass:#D9A878;
+    --brass-dark:#C08A5C; --sage:#6F9574; --rust:#B9636B; --line:#EEDDD3;
+    --panel:#FFFBF8;
     padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
     box-sizing:border-box;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#1C1712; --ink:#F1E9D8; --roast:#F1E9D8; --panel:#26201A; --line:#3E362A;
+      --paper:#231A1D; --ink:#F3E3DD; --roast:#F3E3DD; --panel:#2E2225; --line:#4A3A3D;
     }
   }
-  :root[data-theme="dark"]{ --paper:#1C1712; --ink:#F1E9D8; --roast:#F1E9D8; --panel:#26201A; --line:#3E362A; }
+  :root[data-theme="dark"]{ --paper:#231A1D; --ink:#F3E3DD; --roast:#F3E3DD; --panel:#2E2225; --line:#4A3A3D; }
   *{box-sizing:border-box}
   html{scroll-padding-top:env(safe-area-inset-top,0px)}
   body{
@@ -29,18 +29,39 @@
     min-height:100%;
   }
   .num{font-family:'IBM Plex Mono',monospace}
-  header{
-    padding:18px 20px 14px; border-bottom:1px solid var(--line);
-    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;
+
+  .app-shell{display:flex; align-items:flex-start; min-height:100%}
+  .sidebar{
+    width:230px; flex-shrink:0; background:var(--panel); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; gap:4px;
+    padding:calc(20px + env(safe-area-inset-top,0px)) 16px 20px;
+    position:sticky; top:0; height:100vh; overflow-y:auto;
   }
-  header h1{font-size:17px; margin:0; font-weight:700; letter-spacing:.01em}
-  header p{margin:2px 0 0; font-size:12.5px; opacity:.65}
-  nav{display:flex; gap:6px}
-  nav button{
-    border:1px solid var(--line); background:var(--panel); color:var(--ink);
-    padding:7px 14px; border-radius:7px; font-size:13.5px; cursor:pointer; font-weight:500;
+  .sidebar .brand{margin-bottom:20px}
+  .sidebar .brand h1{font-size:16px; margin:0; font-weight:700; letter-spacing:.01em}
+  .sidebar .brand p{margin:2px 0 0; font-size:11.5px; opacity:.6}
+  .sidebar nav{display:flex; flex-direction:column; gap:3px}
+  .sidebar nav button{
+    border:1px solid transparent; background:transparent; color:var(--ink); text-align:left; width:100%;
+    padding:9px 11px; border-radius:8px; font-size:13.5px; cursor:pointer; font-weight:500;
   }
-  nav button[aria-pressed="true"]{background:var(--roast); color:var(--paper); border-color:var(--roast)}
+  .sidebar nav button:hover{background:var(--paper)}
+  .sidebar nav button[aria-pressed="true"]{background:var(--roast); color:var(--paper)}
+  .sidebar-note{margin-top:auto; padding-top:16px; border-top:1px solid var(--line); font-size:11px; opacity:.55; line-height:1.5}
+  .app-main{flex:1; min-width:0}
+  @media (max-width:760px){
+    .app-shell{flex-direction:column}
+    .sidebar{
+      width:100%; height:auto; position:static; flex-direction:row; align-items:center;
+      padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px; overflow-x:auto;
+      border-right:none; border-bottom:1px solid var(--line);
+    }
+    .sidebar .brand{margin:0 14px 0 0; flex-shrink:0}
+    .sidebar .brand p{display:none}
+    .sidebar nav{flex-direction:row; gap:6px}
+    .sidebar nav button{white-space:nowrap}
+    .sidebar-note{display:none}
+  }
   main{max-width:1040px; margin:0 auto; padding:18px 16px 60px}
   .view{display:none}
   .view.active{display:block}
@@ -104,10 +125,10 @@
   .bar-card .item{font-size:14.5px; font-weight:600; margin:4px 0 2px}
   .bar-card .opts{font-size:12px; opacity:.65; margin-bottom:8px}
   .status-pill{display:inline-block; font-size:11px; padding:2px 8px; border-radius:99px; font-weight:600}
-  .status-pill.queued{background:#EADFC2; color:#6b4f16}
-  .status-pill.making{background:#DCE7DC; color:var(--sage)}
-  .status-pill.done{background:#DCE9E3; color:#2c6b4f}
-  .status-pill.void{background:#F0D9D9; color:var(--rust)}
+  .status-pill.queued{background:#F3E6D8; color:#8C6A46}
+  .status-pill.making{background:#E6E3F0; color:#5B5580}
+  .status-pill.done{background:#E2EDE1; color:#4F7556}
+  .status-pill.void{background:#F5DFE0; color:var(--rust)}
   .bar-actions{display:flex; gap:6px; margin-top:10px}
   .bar-actions button{flex:1; font-size:12px; padding:7px 4px; border-radius:6px; border:1px solid var(--line); background:var(--paper); cursor:pointer}
   .bar-actions button.void{color:var(--rust); border-color:var(--rust)}
@@ -161,12 +182,12 @@
 
   /* ---- Margins & Recipes view ---- */
   .m-row{cursor:pointer}
-  .m-row:hover td{background:rgba(184,121,59,.08)}
-  .m-row.selected td{background:rgba(184,121,59,.16)}
+  .m-row:hover td{background:rgba(166,97,108,.08)}
+  .m-row.selected td{background:rgba(166,97,108,.16)}
   .margin-pill{font-size:11px; padding:2px 8px; border-radius:99px; font-weight:600}
-  .margin-good{background:#DCE9E3; color:#2c6b4f}
-  .margin-low{background:#F5E9CE; color:#7a5a10}
-  .margin-bad{background:#F0D9D9; color:var(--rust)}
+  .margin-good{background:#E2EDE1; color:#4F7556}
+  .margin-low{background:#F3E6D8; color:#8C6A46}
+  .margin-bad{background:#F5DFE0; color:var(--rust)}
   .detail-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start; margin-top:16px}
   @media (max-width:760px){ .detail-grid{grid-template-columns:1fr} }
   .totals-row td{font-weight:700; border-top:1px solid var(--line); border-bottom:none}
@@ -175,20 +196,22 @@
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1>Mansion POS V.1</h1>
-    <p>record sale and inventory for a mini cafe</p>
-  </div>
-  <nav>
-    <button data-view="counter" aria-pressed="true">เคาน์เตอร์</button>
-    <button data-view="bar" aria-pressed="false">จอบาร์</button>
-    <button data-view="inventory" aria-pressed="false">คลังวัตถุดิบ</button>
-    <button data-view="margins" aria-pressed="false">Margins & Recipes</button>
-    <button data-view="report" aria-pressed="false">สรุปยอด</button>
-  </nav>
-</header>
-
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>POS หลังร้านคาเฟ่</h1>
+      <p>ตัวอย่างรุ่น 1</p>
+    </div>
+    <nav>
+      <button data-view="report" aria-pressed="false">🧮&nbsp; สรุปยอด</button>
+      <button data-view="counter" aria-pressed="true">☕&nbsp; เคาน์เตอร์</button>
+      <button data-view="bar" aria-pressed="false">🧾&nbsp; จอบาร์</button>
+      <button data-view="inventory" aria-pressed="false">📦&nbsp; คลังวัตถุดิบ</button>
+      <button data-view="margins" aria-pressed="false">📈&nbsp; Margins & Recipes</button>
+    </nav>
+    <p class="sidebar-note">จำลองตรรกะเดียวกับ record_sale() ใน SQL ด้วย JavaScript ล้วน ไม่มีฐานข้อมูลจริงเบื้องหลัง</p>
+  </aside>
+  <div class="app-main">
 <main>
   <!-- ============ COUNTER ============ -->
   <section id="view-counter" class="view active">
@@ -348,6 +371,8 @@
     <p class="note">ตัวเลขต้นทุนวัตถุดิบต่อหน่วยในตัวอย่างนี้ตรงกับชุดทดสอบ core_test.sql (เมล็ดกาแฟ 60 สตางค์/กรัม, นมวัว 4.5 สตางค์/มล., นมโอ๊ต 8 สตางค์/มล., แก้ว 200 สตางค์/ใบ) เพื่อให้ตรวจทานผลลัพธ์กับไฟล์ SQL ได้โดยตรง ค่าคอมมิชชันในเดโมนี้เป็นค่าประมาณตาม % ที่ตั้งไว้ ยังไม่ได้เทียบกับยอดโอนจริงจากแพลตฟอร์ม</p>
   </section>
 </main>
+  </div>
+</div>
 
 <div id="menuModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(20,15,10,.5); z-index:50; align-items:center; justify-content:center; padding:16px;">
   <div class="card" id="menuManagePanel" style="max-width:820px; width:100%; max-height:88vh; overflow:auto; position:relative">
