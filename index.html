@@ -430,14 +430,14 @@
 <script>
 "use strict";
 /* ---------------- ข้อมูลตั้งต้น (ตัวเลขเดียวกับ core_test.sql) ---------------- */
-const ingredients = {
+let ingredients = {
   bean:  {name:'เมล็ดกาแฟ', unit:'g',  costPerUnit:60,  category:'กาแฟและนม', active:true},
   milk:  {name:'นมวัว',     unit:'ml', costPerUnit:4.5, category:'กาแฟและนม', active:true},
   oat:   {name:'นมโอ๊ต',    unit:'ml', costPerUnit:8,   category:'กาแฟและนม', active:true},
   cup:   {name:'แก้ว',      unit:'pcs',costPerUnit:200, category:'บรรจุภัณฑ์', active:true},
 };
 
-const menuItems = [
+let menuItems = [
   { id:'latte', name:'ลาเต้', price:6000, category:'กาแฟ', channelPrices:{},
     recipe:{ bean:18, milk:150, cup:1 },
     groups:['milkType','extraShot'], active:true },
