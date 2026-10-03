@@ -427,7 +427,39 @@
   </div>
 </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+  const SUPABASE_URL = 'https://gqigqdcepctudrejndbh.supabase.co/rest/v1/';
+  const SUPABASE_KEY = 'sb_publishable_0USOydCV27QSvsQxzcfFsA_Utf5PgR_';
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+</script>
+
+  <script>
+  async function testSupabase() {
+    const { data, error } = await supabaseClient
+      .from('products')
+      .select('*');
+
+    console.log('Supabase products:', data);
+    console.log('Supabase error:', error);
+  }
+
+  testSupabase();
+</script>
+  
+<script>
+  let ingredients = {
+    // ข้อมูลเดิมของ POS
+  };
+
+  let menuItems = [
+    // ข้อมูลเดิมของ POS
+  ];
   
 <script>
 "use strict";
