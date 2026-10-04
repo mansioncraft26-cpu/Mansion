@@ -438,6 +438,19 @@
     SUPABASE_KEY
   );
  </script>
+
+  <script>
+  async function testSupabase() {
+    const { data, error } = await supabaseClient
+      .from('products')
+      .select('*');
+
+    console.log('Supabase products:', data);
+    console.log('Supabase error:', error);
+  }
+
+  testSupabase();
+</script>
    
 "use strict";
 /* ---------------- ข้อมูลตั้งต้น (ตัวเลขเดียวกับ core_test.sql) ---------------- */
