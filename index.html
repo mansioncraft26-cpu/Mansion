@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title> teaOnMansion v.1</title>
+<title>ตัวอย่าง POS หลังร้านคาเฟ่ — รุ่น 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FBF3EE; --ink:#4A3A3D; --roast:#A6616C; --brass:#D9A878;
-    --brass-dark:#C08A5C; --sage:#6F9574; --rust:#B9636B; --line:#EEDDD3;
-    --panel:#FFFBF8;
+    --paper:#F4EDE0; --ink:#2E2A24; --roast:#E95213; --brass:#CFE5F4;
+    --brass-dark:#C7430E; --sage:#6F9574; --rust:#B9636B; --line:#E7D9C2;
+    --panel:#FFFBF5; --pink:#FFBCD9;
     padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
     box-sizing:border-box;
   }
@@ -70,7 +70,7 @@
     border:1px solid var(--line); background:var(--panel); color:var(--ink);
     padding:6px 13px; border-radius:99px; font-size:13px; cursor:pointer; font-weight:500; opacity:.7;
   }
-  .subnav button[aria-pressed="true"]{background:var(--brass); border-color:var(--brass); color:#fff; opacity:1}
+  .subnav button[aria-pressed="true"]{background:var(--brass); border-color:var(--brass); color:var(--ink); opacity:1}
   .subview{display:none}
   .subview.active{display:block}
 
@@ -84,7 +84,7 @@
     border:1px solid var(--line); border-radius:9px; padding:11px 12px; text-align:left;
     background:var(--paper); cursor:pointer; display:flex; flex-direction:column; gap:2px;
   }
-  .menu-item:hover{border-color:var(--brass)}
+  .menu-item:hover{border-color:var(--pink)}
   .menu-item b{font-size:14.5px}
   .menu-item span{font-size:12.5px; opacity:.6}
   .section-label{font-size:11px; text-transform:none; letter-spacing:.02em; opacity:.55; margin:0 0 8px}
@@ -182,8 +182,8 @@
 
   /* ---- Margins & Recipes view ---- */
   .m-row{cursor:pointer}
-  .m-row:hover td{background:rgba(166,97,108,.08)}
-  .m-row.selected td{background:rgba(166,97,108,.16)}
+  .m-row:hover td{background:rgba(233,82,19,.07)}
+  .m-row.selected td{background:rgba(233,82,19,.14)}
   .margin-pill{font-size:11px; padding:2px 8px; border-radius:99px; font-weight:600}
   .margin-good{background:#E2EDE1; color:#4F7556}
   .margin-low{background:#F3E6D8; color:#8C6A46}
@@ -199,8 +199,8 @@
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand">
-      <h1>Mansion POS</h1>
-      <p>First version</p>
+      <h1>POS หลังร้านคาเฟ่</h1>
+      <p>ตัวอย่างรุ่น 1</p>
     </div>
     <nav>
       <button data-view="report" aria-pressed="false">🧮&nbsp; สรุปยอด</button>
@@ -209,7 +209,7 @@
       <button data-view="inventory" aria-pressed="false">📦&nbsp; คลังวัตถุดิบ</button>
       <button data-view="margins" aria-pressed="false">📈&nbsp; Margins & Recipes</button>
     </nav>
-    <p class="sidebar-note">Real record_sale </p>
+    <p class="sidebar-note">จำลองตรรกะเดียวกับ record_sale() ใน SQL ด้วย JavaScript ล้วน ไม่มีฐานข้อมูลจริงเบื้องหลัง</p>
   </aside>
   <div class="app-main">
 <main>
@@ -426,8 +426,7 @@
     </div>
   </div>
 </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <script>
   const SUPABASE_URL = 'https://gqigqdcepctudrejndbh.supabase.co';
@@ -450,18 +449,18 @@
   }
 
   testSupabase();
-</script>
-
+    
+<script>
 "use strict";
 /* ---------------- ข้อมูลตั้งต้น (ตัวเลขเดียวกับ core_test.sql) ---------------- */
-let ingredients = {
+const ingredients = {
   bean:  {name:'เมล็ดกาแฟ', unit:'g',  costPerUnit:60,  category:'กาแฟและนม', active:true},
   milk:  {name:'นมวัว',     unit:'ml', costPerUnit:4.5, category:'กาแฟและนม', active:true},
   oat:   {name:'นมโอ๊ต',    unit:'ml', costPerUnit:8,   category:'กาแฟและนม', active:true},
   cup:   {name:'แก้ว',      unit:'pcs',costPerUnit:200, category:'บรรจุภัณฑ์', active:true},
 };
 
-let menuItems = [
+const menuItems = [
   { id:'latte', name:'ลาเต้', price:6000, category:'กาแฟ', channelPrices:{},
     recipe:{ bean:18, milk:150, cup:1 },
     groups:['milkType','extraShot'], active:true },
