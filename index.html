@@ -600,7 +600,7 @@ function renderOptDeltaRows(){
     <div class="recipe-row">
       <select data-i="${i}" class="od-ing">${ingredientOptionsHtml(r.ing)}</select>
       html += `
-    `<input data-i="${i}" class="od-qty" type="number" step="any" value="${r.qty ?? ''}" placeholder="+/- จำนวน">`
+    `<input data-i="${i}" class="od-qty" type="number" step="any" value="${Number(r.qty) || 0}" placeholder="+/- จำนวน">`
       <button data-i="${i}" class="od-del" type="button">✕</button>
     </div>`).join('');
   document.querySelectorAll('.od-del').forEach(btn=>{
