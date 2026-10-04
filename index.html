@@ -599,7 +599,9 @@ function renderOptDeltaRows(){
   document.getElementById('optDeltaRows').innerHTML = optDeltaRows.map((r,i)=>`
     <div class="recipe-row">
       <select data-i="${i}" class="od-ing">${ingredientOptionsHtml(r.ing)}</select>
-      <input data-i="${i}" class="od-qty" type="number" step="any" value='${r.qty}' placeholder="+/- จำนวน">
+      html += `
+    <input data-i="${i}" class="od-qty" type="number" step="any" value="${r.qty}" placeholder="+/- จำนวน">
+`;
       <button data-i="${i}" class="od-del" type="button">✕</button>
     </div>`).join('');
   document.querySelectorAll('.od-del').forEach(btn=>{
