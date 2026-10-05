@@ -597,11 +597,7 @@ function renderOptDeltaRows(){
     btn.onclick = ()=>{
       optDeltaRows = readOptDeltaRows();
       optDeltaRows.splice(+btn.dataset.i,1);
-
-      if (!optDeltaRows.length) {
-        optDeltaRows=[{ing:'',qty:''}];
-      }
-
+      if (!optDeltaRows.length) optDeltaRows=[{ing:'',qty:''}];
       renderOptDeltaRows();
     };
   });
