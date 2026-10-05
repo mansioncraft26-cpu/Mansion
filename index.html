@@ -584,30 +584,29 @@ function groupInUse(key){
   return reasons;
 }
 
-document.getElementById('addGroup').onclick = ()=>{
-  const name = document.getElementById('gName').value.trim();
-  const min = parseInt(document.getElementById('gMin').value,10) || 0;
-  const max = parseInt(document.getElementById('gMax').value,10) || 1;
-  if (!name || max < min) return;
-  optionGroups['g_'+Date.now()] = { name, min, max, options:[] };
-  document.getElementById('gName').value='';
-  document.getElementById('gMin').value='0'; document.getElementById('gMax').value='1';
-  renderOptionGroups(); renderGroupChecks();
-};
-
 function renderOptDeltaRows(){
   document.getElementById('optDeltaRows').innerHTML = optDeltaRows.map((r,i)=>`
     <div class="recipe-row">
       <select data-i="${i}" class="od-ing">${ingredientOptionsHtml(r.ing)}</select>
-      html += `
-    <input data-i="${i}" class="od-qty" type="number" step="any" value="${Number.isFinite(Number(r.qty)) ? Number(r.qty) : 1}" placeholder="+/- จำนวน">
+      <input data-i="${i}" class="od-qty" type="number" step="any" value="${Number(r.qty) || 0}" placeholder="+/- จำนวน">
       <button data-i="${i}" class="od-del" type="button">✕</button>
-    </div>`).join('');
+    </div>
+  `).join('');
+
   document.querySelectorAll('.od-del').forEach(btn=>{
-    btn.onclick = ()=>{ optDeltaRows = readOptDeltaRows(); optDeltaRows.splice(+btn.dataset.i,1);
-      if (!optDeltaRows.length) optDeltaRows=[{ing:'',qty:''}]; renderOptDeltaRows(); };
+    btn.onclick = ()=>{
+      optDeltaRows = readOptDeltaRows();
+      optDeltaRows.splice(+btn.dataset.i,1);
+
+      if (!optDeltaRows.length) {
+        optDeltaRows=[{ing:'',qty:''}];
+      }
+
+      renderOptDeltaRows();
+    };
   });
 }
+      
 function readOptDeltaRows(){
   const ings = [...document.querySelectorAll('.od-ing')].map(s=>s.value);
   const qtys = [...document.querySelectorAll('.od-qty')].map(i=>i.value);
